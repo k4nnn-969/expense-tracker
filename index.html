@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#f0f7f1" />
+  <title>Expense Tracker — Struk Pengeluaran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <header class="header">
+      <div class="logo">
+        <span class="logo__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 3h12l1.5 2v16l-2.5-1.5-2.5 1.5-2.5-1.5-2.5 1.5-2.5-1.5-2.5 1.5V5L6 3z" />
+            <path d="M9 8h6M9 12h6M9 16h3" />
+          </svg>
+        </span>
+        <div class="logo__text">
+          <h1>Expense Tracker</h1>
+          <p>Struk pengeluaran digital</p>
+        </div>
+      </div>
+
+      <div class="header__date">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span id="todayLabel">—</span>
+      </div>
+    </header>
+
+    <main class="grid">
+
+      <section class="panel panel--form">
+        <div class="panel__head">
+          <h2>Input Transaksi</h2>
+          <p>Isi detail di bawah, lalu tekan tombol cetak.</p>
+        </div>
+
+        <form id="expenseForm" novalidate>
+
+          <div class="field">
+            <label for="name">Keterangan</label>
+            <input id="name" type="text" maxlength="48" placeholder="contoh. Makan siang" autocomplete="off" />
+            <small class="error" id="errName"></small>
+          </div>
+
+          <div class="field">
+            <label for="category">Kategori</label>
+            <div class="select-wrap">
+              <select id="category">
+                <option value="Makanan">Makanan &amp; Minuman</option>
+                <option value="Transportasi">Transportasi</option>
+                <option value="Belanja">Belanja</option>
+                <option value="Tagihan">Tagihan</option>
+                <option value="Hiburan">Hiburan</option>
+                <option value="Lainnya" selected>Lainnya</option>
+              </select>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="amount">Nominal</label>
+            <div class="amount-wrap">
+              <span class="rp">Rp</span>
+              <input id="amount" type="text" inputmode="numeric" placeholder="0" autocomplete="off" />
+            </div>
+            <small class="error" id="errAmount"></small>
+          </div>
+
+          <div class="chips" id="quickChips">
+            <button type="button" data-add="10000">+10rb</button>
+            <button type="button" data-add="25000">+25rb</button>
+            <button type="button" data-add="50000">+50rb</button>
+            <button type="button" data-add="100000">+100rb</button>
+          </div>
+
+          <button class="btn btn--primary" type="submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 9V3h12v6" />
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <rect x="6" y="14" width="12" height="8" rx="1" />
+            </svg>
+            Cetak Struk
+          </button>
+
+        </form>
+      </section>
+
+      <section class="panel panel--receipt">
+
+        <div class="toolbar">
+          <label class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="6.5" />
+              <path d="m20 20-3.7-3.7" />
+            </svg>
+            <input id="searchInput" type="search" placeholder="Cari transaksi..." aria-label="Cari transaksi" />
+          </label>
+          <button class="btn btn--ghost btn--sm" id="clearAllBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 7h16" />
+              <path d="M9.5 7V5.6A1.6 1.6 0 0 1 11.1 4h1.8a1.6 1.6 0 0 1 1.6 1.6V7" />
+              <path d="M6.6 7l.8 11.1A2 2 0 0 0 9.4 20h5.2a2 2 0 0 0 2-1.9L17.4 7" />
+            </svg>
+            Hapus Semua
+          </button>
+        </div>
+
+        <div class="receipt-stage">
+          <article class="receipt">
+
+            <header class="receipt__head">
+              <h2 class="receipt__store">EXPENSE TRACKER</h2>
+              <p class="receipt__tagline">STRUK PENGELUARAN DIGITAL</p>
+              <p class="receipt__addr">Jakarta — Indonesia</p>
+            </header>
+
+            <!-- === META === -->
+            <div class="receipt__meta">
+              <div class="receipt__row">
+                <span>NO. STRUK</span>
+                <span class="receipt__dots"></span>
+                <span id="receiptNo">#0000</span>
+              </div>
+              <div class="receipt__row">
+                <span>TANGGAL</span>
+                <span class="receipt__dots"></span>
+                <span id="receiptDate">—</span>
+              </div>
+              <div class="receipt__row">
+                <span>KASIR</span>
+                <span class="receipt__dots"></span>
+                <span>SELF-SERVICE</span>
+              </div>
+            </div>
+
+            <div class="receipt__rule">= = = = = = = = = = = = = = = =</div>
+
+            <ul class="receipt__items" id="list"></ul>
+
+            <div class="empty" id="emptyState">
+              <div class="empty__rule">- - - - - - - - - - - - - -</div>
+              <p class="empty__title">BELUM ADA</p>
+              <p class="empty__title">TRANSAKSI</p>
+              <p class="empty__hint">Mulai catat pengeluaran<br />lewat form di samping.</p>
+              <div class="empty__rule">- - - - - - - - - - - - - -</div>
+            </div>
+
+            <div class="receipt__rule">- - - - - - - - - - - - - - - -</div>
+
+            <div class="receipt__totals">
+              <div class="receipt__row">
+                <span>JUMLAH ITEM</span>
+                <span class="receipt__dots"></span>
+                <span id="totalCount">0</span>
+              </div>
+              <div class="receipt__row receipt__row--grand">
+                <span>TOTAL</span>
+                <span class="receipt__dots"></span>
+                <span id="totalAmount">Rp 0</span>
+              </div>
+            </div>
+
+            <div class="receipt__rule">= = = = = = = = = = = = = = = =</div>
+
+            <!-- === FOOTER === -->
+            <footer class="receipt__foot">
+              <p class="receipt__thanks">*** TERIMA KASIH ***</p>
+              <p class="receipt__small">Simpan struk ini sebagai bukti</p>
+              <p class="receipt__small">pengeluaran Anda.</p>
+
+              <div class="barcode" aria-hidden="true"></div>
+              <p class="receipt__code">Expense Tracker-<span id="receiptCode">0000-0000</span></p>
+            </footer>
+
+          </article>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <template id="itemTemplate">
+    <li class="r-item">
+      <div class="r-item__main">
+        <span class="r-item__qty">1×</span>
+        <span class="r-item__name"></span>
+        <span class="r-item__dots"></span>
+        <span class="r-item__price"></span>
+        <button class="r-item__del" type="button" aria-label="Hapus transaksi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="r-item__sub">
+        <span class="r-item__cat"></span>
+        <span class="r-item__time"></span>
+      </div>
+    </li>
+  </template>
+
+  <dialog class="dialog" id="confirmDialog">
+    <span class="dialog__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 8.5v4.5" />
+        <path d="M12 16.6h.01" />
+        <path d="M10.3 4.3 2.9 17.4A1.9 1.9 0 0 0 4.6 20.3h14.8a1.9 1.9 0 0 0 1.7-2.9L13.7 4.3a1.9 1.9 0 0 0-3.4 0Z" />
+      </svg>
+    </span>
+    <h3>Hapus semua data?</h3>
+    <p>Seluruh riwayat pengeluaran akan dihapus permanen dan tidak bisa dikembalikan.</p>
+    <div class="dialog__actions">
+      <button class="btn btn--ghost" type="button" data-close>Batal</button>
+      <button class="btn btn--danger" type="button" data-confirm>Ya, Hapus Semua</button>
+    </div>
+  </dialog>
+
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
