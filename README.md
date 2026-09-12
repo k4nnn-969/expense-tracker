@@ -86,7 +86,7 @@ duit-expense-tracker/
    lalu buka `http://localhost:8000`
 
 ### Online (GitHub Pages)
-Buka langsung: `https://USERNAME.github.io/duit-expense-tracker/`
+Buka langsung: `https://k4nnn-969.github.io/expense-tracker/`
 
 ---
 
